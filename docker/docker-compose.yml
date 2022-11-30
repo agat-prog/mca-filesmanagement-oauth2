@@ -1,0 +1,16 @@
+# agatalba/tfm-mca-filemanagement-oauth2:0.0.1
+version: '3.5'
+services:
+  oauth2:
+    image: "${DOCKER_LOCAL_IMAGE}"
+    ports:
+      - "8081:8081"
+    environment:
+      DB_HOST: mysqldb
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+    restart: on-failure
+networks:
+  default:
+    external: true
+    name: files-network
