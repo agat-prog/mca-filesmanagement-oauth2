@@ -1,2 +1,6 @@
 docker/.env
 target/
+.project
+.settings/
+.gitignore
+.classpath
