@@ -1,6 +1,27 @@
-Cambio 01 - Ejecución de workflow
-Cambio 02 - Ejecución de workflow
-Cambio 03 - Ejecución de workflow para push en develop
+
+  okteto-deploy:
+    name: Deploy into okteto kubernetes
+    runs-on: ubuntu-20.04
+    needs: [publish_in_dockerhub]
+    steps:
+      - name: Get Kubeconfig
+        uses: okteto/actions/namespace@v1
+          id: namespace
+          with:
+            token: ${{ secrets.OKTETO_TOKEN }}
+            namespace: tfm-pre-agat-prog
+      - name: Deploy and Wait
+        uses: okteto/actions/deploy@v1
+          env:
+            KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
+          with:
+            namespace: tfm-pre-agat-prog
+            manifest: ../k8s/oauth2.yml
+            tag: ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}
+            waitOn: deployment/oauth2
+            
+            
+            
 
 # Practica 1 - Integración y Entrega Continua
 
