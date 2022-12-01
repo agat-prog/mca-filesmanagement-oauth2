@@ -32,7 +32,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '17'        
+          java-version: '17'
       - name: Generate tag
         run: echo ::set-output name=tag::$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout)
         id: project
@@ -42,5 +42,5 @@ jobs:
         run: docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}"
       - name: Push image to DockerHub
         run: |
-          docker tag $IMAGE_NAME ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}-dev
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}-dev
+          docker tag $IMAGE_NAME ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}
