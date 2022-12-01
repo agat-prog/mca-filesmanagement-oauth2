@@ -1,12 +1,12 @@
 name: push-develop
 
-on: 
+on:
   push :
     branches:
       - develop
 
 jobs:
-  test:
+  test-all:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Push to develop"
@@ -17,3 +17,25 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
       - run: mvn -Dtest="*Test" test
+
+  publish_in_dockerhub:
+    name: Publish in DockerHub
+    runs-on: ubuntu-20.04
+    needs: [test-all]
+    env:
+      IMAGE_NAME: tfm-mca-filemanagement-oauth2
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Generate tag
+        run: echo ::set-output name=tag::$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout)
+        id: project
+      - name: Build image
+        run: mvn jib:dockerBuild -Dimage=$IMAGE_NAME
+      - name: Login to DockerHub
+        run: docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}"
+      - name: Push image to DockerHub
+        run: |
+          docker tag $IMAGE_NAME ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}-dev
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}-dev

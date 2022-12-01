@@ -1,12 +1,12 @@
 name: pull-request-develop
 
-on: 
+on:
   pull_request :
     branches:
       - develop
 
 jobs:
-  run_if:
+  test-all:
     if:  startsWith(github.head_ref, 'feature/')
     runs-on: ubuntu-latest
     steps:
