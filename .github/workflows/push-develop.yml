@@ -69,7 +69,7 @@ jobs:
         with:
           include: ./k8s/oauth2.yml
           find: "${IMAGE_NAME}"
-          replace: ${{ needs.publish_in_dockerhub.imagename.outputs.tag }}
+          replace: "${{ needs.publish_in_dockerhub.imagename.outputs.tag }}"
           regex: false
       - name: "Apply deployment"
         uses: okteto/apply@2.10.1
