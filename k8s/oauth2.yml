@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: oauth2
-        image: "${IMAGE_NAME}"
+        image: $IMAGE_NAME
         env:
         - name: DB_HOST
           value: mysql-service.tfm-pre-svc-agat-prog.svc.cluster.local
