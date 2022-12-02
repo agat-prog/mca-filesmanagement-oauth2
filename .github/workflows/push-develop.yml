@@ -52,6 +52,8 @@ jobs:
     runs-on: ubuntu-20.04
     needs:
       - publish_in_dockerhub
+    env:
+      IMAGE_NAME: ${{ steps.imagename.outputs.tag }}     
     steps:
       - name: Clone repository
         uses: actions/checkout@v2

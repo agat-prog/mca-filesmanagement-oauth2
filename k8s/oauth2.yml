@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: oauth2
-        image: agatalba/tfm-mca-filemanagement-oauth2:1.0.1-SNAPSHOT
+        image: ${IMAGE_NAME}
         env:
         - name: DB_HOST
           value: mysql-service.tfm-pre-svc-agat-prog.svc.cluster.local
