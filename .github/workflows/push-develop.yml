@@ -62,6 +62,6 @@ jobs:
           KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
         with:
           namespace: tfm-pre-agat-prog
-          manifest: ../k8s/oauth2.yml
+          manifest: ./k8s/oauth2.yml
           tag: ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag}}
           waitOn: deployment/oauth2
