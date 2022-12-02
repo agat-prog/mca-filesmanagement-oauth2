@@ -52,8 +52,6 @@ jobs:
     runs-on: ubuntu-20.04
     needs:
       - publish_in_dockerhub
-    env:
-      IMAGE_NAME: ${{ steps.imagename.outputs.tag }}
 
     steps:
       - name: Clone repository
@@ -68,5 +66,6 @@ jobs:
         uses: okteto/apply@2.10.1
         env:
           KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
+          IMAGE_NAME: ${{ needs.publish_in_dockerhub.imagename.outputs.tag }}
         with:
           manifest: ./k8s/oauth2.yml
