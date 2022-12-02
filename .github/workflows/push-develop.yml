@@ -53,7 +53,8 @@ jobs:
     needs:
       - publish_in_dockerhub
     env:
-      IMAGE_NAME: ${{ steps.imagename.outputs.tag }}     
+      IMAGE_NAME: ${{ steps.imagename.outputs.tag }}
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
