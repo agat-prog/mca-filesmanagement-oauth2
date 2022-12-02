@@ -59,7 +59,7 @@ jobs:
           token: ${{ secrets.OKTETO_TOKEN }}
           namespace: tfm-pre-agat-prog
       - name: "Apply deployment"
-        uses: okteto/apply@master
+        uses: okteto/apply@2.10.1
         env:
           KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
         with:
