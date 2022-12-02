@@ -52,7 +52,9 @@ jobs:
     runs-on: ubuntu-20.04
     needs:
       - publish_in_dockerhub
-
+    env:
+      IMAGE_NAME: tfm-mca-filemanagement-oauth2
+      
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
