@@ -54,7 +54,7 @@ jobs:
       - publish_in_dockerhub
     env:
       IMAGE_NAME: tfm-mca-filemanagement-oauth2
-      
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
@@ -64,6 +64,13 @@ jobs:
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
           namespace: tfm-pre-agat-prog
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          include: ./k8s/oauth2.yml
+          find: "${IMAGE_NAME}"
+          replace: ${{ needs.publish_in_dockerhub.imagename.outputs.tag }}
+          regex: false
       - name: "Apply deployment"
         uses: okteto/apply@2.10.1
         env:
