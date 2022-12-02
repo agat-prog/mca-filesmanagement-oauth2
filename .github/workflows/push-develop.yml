@@ -50,6 +50,8 @@ jobs:
     needs:
       - publish_in_dockerhub
     steps:
+      - name: Clone repository
+        uses: actions/checkout@v2      
       - name: Get Kubeconfig
         uses: okteto/actions/namespace@v1
         id: namespace
