@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: oauth2
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: oauth2
+        release: {{ .Release.Name }}
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: oauth2
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
+        env:
+        - name: DB_HOST
+          value: "{{ .Values.mysql.host }}"
+        - name: DB_USER
+          value: "{{ .Values.mysql.user }}"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: files-secrets
+              key: mysqlpass
+        ports:
+          - containerPort: {{ .Values.service.port }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth2
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: oauth2
+    release: {{ .Release.Name }}  
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: oauth2
+  ports:
+  - name: oauth2-port
+    port: {{ .Values.service.port }}

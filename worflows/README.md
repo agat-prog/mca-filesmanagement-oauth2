@@ -25,6 +25,11 @@ prueba en jenkins
             
             
 https://blog.santiagoagustinfernandez.com/creando-nuestro-ci-cd-con-github-actions-y-okteto/
+
+CI/CD CON DIAGRAMAS UML
+https://davidcampos.org/blog/2020/03/15/k8s-jenkins-example.html
+
+https://www.jenkins.io/doc/book/installing/docker/
             
 
 # Practica 1 - Integración y Entrega Continua
