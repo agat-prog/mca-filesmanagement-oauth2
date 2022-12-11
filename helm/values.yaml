@@ -1,10 +1,7 @@
-# Default values for purchases API.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 # K8s namespace
 namespace: tfm-pre-agat-prog
 
+# Nombre de la imagen a desplegar
 image:
   repository: agatalba/tfm-mca-filemanagement-oauth2
   tag: "latest"
