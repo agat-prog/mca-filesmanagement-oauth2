@@ -7,7 +7,7 @@ namespace: tfm-pre-agat-prog
 
 image:
   repository: agatalba/tfm-mca-filemanagement-oauth2
-  tag: "1.0.1-SNAPSHOT"
+  tag: "latest"
   
 mysql:
   host: "mysql-service.tfm-pre-svc-agat-prog.svc.cluster.local"
