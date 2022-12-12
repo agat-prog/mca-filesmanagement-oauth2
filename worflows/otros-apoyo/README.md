@@ -1,3 +1,37 @@
+prueba en jenkins
+
+
+  okteto-deploy:
+    name: Deploy into okteto kubernetes
+    runs-on: ubuntu-20.04
+    needs: [publish_in_dockerhub]
+    steps:
+      - name: Get Kubeconfig
+        uses: okteto/actions/namespace@v1
+          id: namespace
+          with:
+            token: ${{ secrets.OKTETO_TOKEN }}
+            namespace: tfm-pre-agat-prog
+      - name: Deploy and Wait
+        uses: okteto/actions/deploy@v1
+          env:
+            KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
+          with:
+            namespace: tfm-pre-agat-prog
+            manifest: ../k8s/oauth2.yml
+            tag: ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ steps.project.outputs.tag }}
+            waitOn: deployment/oauth2
+            
+            
+            
+https://blog.santiagoagustinfernandez.com/creando-nuestro-ci-cd-con-github-actions-y-okteto/
+
+CI/CD CON DIAGRAMAS UML
+https://davidcampos.org/blog/2020/03/15/k8s-jenkins-example.html
+
+https://www.jenkins.io/doc/book/installing/docker/
+            
+
 # Practica 1 - Integración y Entrega Continua
 
 Autor(es): Antonio Gat Alba y Alejandro Molina López
