@@ -27,7 +27,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
-		<checkstyle-maven-plugin.version>3.1.2</checkstyle-maven-plugin.version>
+		<checkstyle-maven-plugin.version>3.2.0</checkstyle-maven-plugin.version>
 		<checkstyle.version>9.2.1</checkstyle.version>
 		<flyway.version>7.15.0</flyway.version>
 	</properties>
@@ -115,8 +115,8 @@
 					</dependency>
 				</dependencies>
 				<configuration>
-					<violationSeverity>warning</violationSeverity>
-					<configLocation>${project.basedir}/checkstyle/google_checks.xml</configLocation>
+					<violationSeverity>error</violationSeverity>
+					<configLocation>google_checks.xml</configLocation>
 					<sourceDirectories>
 						<sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
 					</sourceDirectories>
