@@ -29,25 +29,3 @@ pipeline {
         }        
     }
 }
-
-
-def String pomVersion = ''
-def String imageName = 'agatalba/tfm-mca-filemanagement-oauth2'
-pipeline {
-    agent any 
-    stages {
-        stage('Example Build') {
-            agent {
-                docker {
-                    image 'dtzar/helm-kubectl'
-                    args  '-u root -v /home/agat/.kube:/root/.kube'
-                }
-            }  
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-user', url: 'https://github.com/agat-prog/mca-filesmanagement-oauth2.git']]])
-                sh "helm upgrade -n tfm-pre-agat-prog oauth2-release helm/"
-            }
-        }
-    }
-}
-
