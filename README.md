@@ -28,3 +28,5 @@ release:prepare release:perform release:branch -DbranchName=release  -B -Dprojec
 
 
 release:prepare release:branch -B -Dproject.scm.id=github-server-oauth2 -DtagNameFormat=@{project.version} -DupdateBranchVersions=false -DbranchName=release  -DupdateWorkingCopyVersions=true
+
+release:clean release:prepare  -B -Dproject.scm.id=github-server-oauth2 -DtagNameFormat=@{project.version}
