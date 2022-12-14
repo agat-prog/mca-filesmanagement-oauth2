@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>mca.filesmanagement</groupId>
 	<artifactId>oauth2</artifactId>
-	<version>1.0.23</version>
+	<version>1.0.24-SNAPSHOT</version>
 	<description>Servidor de autenticación</description>
 
 	<parent>
@@ -35,7 +35,7 @@
 
 	<scm>
 		<developerConnection>scm:git:https://github.com/agat-prog/mca-filesmanagement-oauth2.git</developerConnection>
-		<tag>1.0.23</tag>
+		<tag>1.0.21</tag>
 	</scm>
 
 	<dependencies>
