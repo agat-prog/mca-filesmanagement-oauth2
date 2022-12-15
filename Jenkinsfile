@@ -1,5 +1,4 @@
 def String pomVersion = ''
-def String imageName = 'agatalba/tfm-mca-filemanagement-oauth2'
 pipeline {
     environment {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
@@ -35,7 +34,23 @@ pipeline {
             	echo "version -- ${REGISTRY}" 
                 sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
             }
-        }        
+        }  
+        stage('Deploy into Kubernetes') {
+            when {
+                environment name: 'DEPLOY', value: 'true'
+            }          
+            agent {
+                docker {
+                    image 'dtzar/helm-kubectl'
+                    args  '-u root -v /home/agat/.kube:/root/.kube'
+                }
+            }  
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-user', url: 'https://github.com/agat-prog/mca-filesmanagement-oauth2.git']]])
+
+                sh "helm upgrade -n tfm-pre-agat-prog -f helm/values.yaml --set image.tag='${pomVersion}'  oauth2-release helm/"
+            }
+        }              
     }
 }
 
