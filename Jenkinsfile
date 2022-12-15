@@ -4,7 +4,7 @@ pipeline {
     environment {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
         NAME = "${env.BRANCH_NAME == "main" ? "example" : "example-staging"}"
-        REGISTRY = 'davidcampos/k8s-jenkins-example'
+        REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
     agent any
     tools {
@@ -32,7 +32,8 @@ pipeline {
                 environment name: 'DEPLOY', value: 'true'
             }        
             steps {
-                sh "mvn compile jib:build -Dimage=${imageName}:${pomVersion} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
+            	echo "version -- ${REGISTRY}" 
+                sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
             }
         }        
     }
