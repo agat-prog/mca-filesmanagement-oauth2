@@ -35,7 +35,7 @@
 
 	<scm>
 		<developerConnection>scm:git:https://github.com/agat-prog/mca-filesmanagement-oauth2.git</developerConnection>
-		<tag>release/1.0.1</tag>
+		<tag>oauth2-1.0.1</tag>
 	</scm>
 
 	<dependencies>
