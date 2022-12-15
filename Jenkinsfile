@@ -3,6 +3,7 @@ pipeline {
     environment {
         NAMESPACE = "${env.BRANCH_NAME == "main" ? "tfm-prod-agat-prog" : "tfm-pre-agat-prog"}"
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
+        BUILD = "${env.BRANCH_NAME == "main" ? "false" : "true"}"
         NAME = "${env.BRANCH_NAME == "main" ? "example" : "example-staging"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
@@ -29,7 +30,7 @@ pipeline {
         }
         stage('Build image') {
             when {
-                environment name: 'DEPLOY', value: 'true'
+                environment name: 'BUILD', value: 'true'
             }        
             steps {
             	echo "version -- ${REGISTRY}" 
