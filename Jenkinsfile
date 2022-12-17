@@ -3,7 +3,7 @@ pipeline {
     environment {
         NAMESPACE = "${env.BRANCH_NAME == "main" ? "tfm-prod-agat-prog" : "tfm-pre-agat-prog"}"
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
-        BUILD = "${env.BRANCH_NAME == "main" ? "false" : "true"}"
+        BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.contains('release') ? "true" : "false"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
     agent any
@@ -42,8 +42,6 @@ pipeline {
                 }
             }  
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-user', url: 'https://github.com/agat-prog/mca-filesmanagement-oauth2.git']]])
-
                 sh "helm upgrade -n ${NAMESPACE} -f helm/values.yaml --set image.tag='${pomVersion}'  oauth2-release helm/"
             }
         }              
