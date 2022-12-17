@@ -1,7 +1,7 @@
 
 sudo chmod 666 /var/run/docker.sock
 
-Cambios en feature/feature_01
+Cambios en feature/feature_02
 
 
   okteto-deploy:
