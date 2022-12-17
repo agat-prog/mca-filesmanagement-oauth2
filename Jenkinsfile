@@ -6,11 +6,9 @@ pipeline {
         BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") ? "true" : "false"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
-	properties {
-	    disableConcurrentBuilds()  
-	}    
 	options {
-	        buildDiscarder(logRotator(numToKeepStr: "2"))
+	    buildDiscarder(logRotator(numToKeepStr: "2"))
+		disableConcurrentBuilds()  
 	}    
     agent any
     tools {
