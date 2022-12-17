@@ -12,11 +12,6 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/${env.BRANCH_NAME}']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-user', url: 'https://github.com/agat-prog/mca-filesmanagement-oauth2.git']]])
-            }
-        }
         stage('Unit Test') {
             steps {
                 script {
