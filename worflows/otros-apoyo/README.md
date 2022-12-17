@@ -1,4 +1,7 @@
-prueba en jenkins
+
+sudo chmod 666 /var/run/docker.sock
+
+Cambios en feature/feature_02
 
 
   okteto-deploy:
@@ -28,6 +31,7 @@ https://blog.santiagoagustinfernandez.com/creando-nuestro-ci-cd-con-github-actio
 
 CI/CD CON DIAGRAMAS UML
 https://davidcampos.org/blog/2020/03/15/k8s-jenkins-example.html
+
 
 https://www.jenkins.io/doc/book/installing/docker/
             

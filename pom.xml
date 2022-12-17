@@ -1,9 +1,8 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>mca.filesmanagement</groupId>
 	<artifactId>oauth2</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<description>Servidor de autenticación</description>
 
 	<parent>
@@ -28,10 +27,16 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
-		<checkstyle-maven-plugin.version>3.1.2</checkstyle-maven-plugin.version>
+		<checkstyle-maven-plugin.version>3.2.0</checkstyle-maven-plugin.version>
 		<checkstyle.version>9.2.1</checkstyle.version>
 		<flyway.version>7.15.0</flyway.version>
+		<project.scm.id>github-server-oauth2</project.scm.id>
 	</properties>
+
+	<scm>
+		<developerConnection>scm:git:https://github.com/agat-prog/mca-filesmanagement-oauth2.git</developerConnection>
+		<tag>oauth2-1.0.1</tag>
+	</scm>
 
 	<dependencies>
 		<dependency>
@@ -80,11 +85,11 @@
 		</dependency>
 
 		<!-- Testing -->
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-test</artifactId>
-	      <scope>test</scope>
-	    </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -112,8 +117,8 @@
 					</dependency>
 				</dependencies>
 				<configuration>
-					<violationSeverity>warning</violationSeverity>
-					<configLocation>${project.basedir}/checkstyle/google_checks.xml</configLocation>
+					<violationSeverity>error</violationSeverity>
+					<configLocation>google_checks.xml</configLocation>
 					<sourceDirectories>
 						<sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
 					</sourceDirectories>
