@@ -4,7 +4,6 @@ pipeline {
         NAMESPACE = "${env.BRANCH_NAME == "main" ? "tfm-prod-agat-prog" : "tfm-pre-agat-prog"}"
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
         BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") ? "true" : "false"}"
-        SUFIJO = "${env.BRANCH_NAME.startsWith("release") ? "-rc" : "__"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
 	options {
@@ -24,7 +23,6 @@ pipeline {
                 echo "REGISTRY -- ${REGISTRY}"
                 echo "BUILD -- ${BUILD}"
                 echo "DEPLOY -- ${DEPLOY}"
-                echo "SUFIJO -- ${SUFIJO}"                            
             }
         }    
         stage('Unit Test') {
@@ -46,7 +44,7 @@ pipeline {
                 }
             }
             steps {
-                pomVersion = pomVersion + "-rc"
+                pomVersion = ${pomVersion} + "-rc"
                 echo "pomVersion"                
             }
         }        
@@ -70,7 +68,7 @@ pipeline {
                 }
             }  
             steps {
-                sh "helm upgrade -n ${NAMESPACE} -f helm/values.yaml --set image.tag='${pomVersion}${SUFIJO}'  oauth2-release helm/"
+                sh "helm upgrade -n ${NAMESPACE} -f helm/values.yaml --set image.tag='${pomVersion}'  oauth2-release helm/"
             }
         }              
     }
