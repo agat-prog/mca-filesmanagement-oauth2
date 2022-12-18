@@ -4,7 +4,7 @@ pipeline {
         NAMESPACE = "${env.BRANCH_NAME == "main" ? "tfm-prod-agat-prog" : "tfm-pre-agat-prog"}"
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
         BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") ? "true" : "false"}"
-        SUFIJO = "${env.BRANCH_NAME.startsWith("release") ? "-rc" : ""}"
+        SUFIJO = "${env.BRANCH_NAME.startsWith("release") ? "-rc" : "__"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
 	options {
@@ -44,8 +44,11 @@ pipeline {
                 environment name: 'BUILD', value: 'true'
             }        
             steps {
+            	if (env.BRANCH_NAME.startsWith("release")){
+            		pomVersion = pomVersion + "-rc"
+            	}
             	echo "version -- ${REGISTRY}" 
-                sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion}${SUFIJO} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
+                sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
             }
         }  
         stage('Deploy into Kubernetes') {
