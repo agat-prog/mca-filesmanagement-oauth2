@@ -42,11 +42,11 @@ pipeline {
         stage('Build image') {
             when {
                 environment name: 'BUILD', value: 'true'
-            }        
+            }
+          	if (env.BRANCH_NAME.startsWith("release")){
+        		pomVersion = pomVersion + "-rc"
+        	}        
             steps {
-            	if (env.BRANCH_NAME.startsWith("release")){
-            		pomVersion = pomVersion + "-rc"
-            	}
             	echo "version -- ${REGISTRY}" 
                 sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
             }
