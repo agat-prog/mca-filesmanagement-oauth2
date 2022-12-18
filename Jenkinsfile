@@ -44,7 +44,9 @@ pipeline {
                 }
             }
             steps {
-                pomVersion = ${pomVersion} + "-rc"
+	            script {
+	                pomVersion = ${pomVersion} + "-rc"
+                }
                 echo "pomVersion"                
             }
         }        
