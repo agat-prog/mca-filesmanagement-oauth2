@@ -23,7 +23,8 @@ pipeline {
                 echo "NAMESPACE -- ${NAMESPACE}"
                 echo "REGISTRY -- ${REGISTRY}"
                 echo "BUILD -- ${BUILD}"
-                echo "DEPLOY -- ${DEPLOY}"              
+                echo "DEPLOY -- ${DEPLOY}"
+                echo "SUFIX -- ${SUFIX}"                            
             }
         }    
         stage('Unit Test') {
@@ -44,7 +45,7 @@ pipeline {
             }        
             steps {
             	echo "version -- ${REGISTRY}" 
-                sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
+                sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion}${SUFIX} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
             }
         }  
         stage('Deploy into Kubernetes') {
