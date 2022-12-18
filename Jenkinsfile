@@ -3,11 +3,12 @@ pipeline {
     environment {
         NAMESPACE = "${env.BRANCH_NAME == "main" ? "tfm-prod-agat-prog" : "tfm-pre-agat-prog"}"
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
-        BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") ? "true" : "false"}"
+        BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") || env.BRANCH_NAME == "main" ? "true" : "false"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
 	options {
-	        buildDiscarder(logRotator(numToKeepStr: "2"))
+	    buildDiscarder(logRotator(numToKeepStr: "2"))
+		disableConcurrentBuilds()  
 	}    
     agent any
     tools {
@@ -21,7 +22,7 @@ pipeline {
                 echo "NAMESPACE -- ${NAMESPACE}"
                 echo "REGISTRY -- ${REGISTRY}"
                 echo "BUILD -- ${BUILD}"
-                echo "DEPLOY -- ${DEPLOY}"              
+                echo "DEPLOY -- ${DEPLOY}"
             }
         }    
         stage('Unit Test') {
@@ -39,7 +40,7 @@ pipeline {
         stage('Build image') {
             when {
                 environment name: 'BUILD', value: 'true'
-            }        
+            }
             steps {
             	echo "version -- ${REGISTRY}" 
                 sh "mvn compile jib:build -Dimage=${REGISTRY}:${pomVersion} -DskipTests -Djib.to.auth.username=agatalba -Djib.to.auth.password=agat1978#"                
