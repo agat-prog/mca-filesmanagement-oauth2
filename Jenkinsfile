@@ -3,7 +3,7 @@ pipeline {
     environment {
         NAMESPACE = "${env.BRANCH_NAME == "main" ? "tfm-prod-agat-prog" : "tfm-pre-agat-prog"}"
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
-        BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") ? "true" : "false"}"
+        BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") || env.BRANCH_NAME == "main" ? "true" : "false"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
     }
 	options {
@@ -37,19 +37,6 @@ pipeline {
                 sh "mvn clean test"                
             }
         }
-        stage('RC version') {
-            when {
-                expression {
-                    return env.BRANCH_NAME.startsWith("release")
-                }
-            }
-            steps {
-	            script {
-	                pomVersion = pomVersion + "-rc"
-                }
-                echo "pomVersion"                
-            }
-        }        
         stage('Build image') {
             when {
                 environment name: 'BUILD', value: 'true'
