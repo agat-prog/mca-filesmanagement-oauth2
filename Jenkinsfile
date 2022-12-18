@@ -39,6 +39,17 @@ pipeline {
                 sh "mvn clean test"                
             }
         }
+        stage('RC version') {
+            when {
+                expression {
+                    return env.BRANCH_NAME.startsWith("release")
+                }
+            }
+            steps {
+                pomVersion = pomVersion + "-rc"
+                echo "pomVersion"                
+            }
+        }        
         stage('Build image') {
             when {
                 environment name: 'BUILD', value: 'true'
