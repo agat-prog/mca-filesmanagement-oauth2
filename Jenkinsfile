@@ -2,6 +2,7 @@ def String pomVersion = ''
 pipeline {
     environment {
         NAMESPACE = "${env.BRANCH_NAME == "main" ? "tfm-prod-agat-prog" : "tfm-pre-agat-prog"}"
+        MYSQL_HOST = "${env.BRANCH_NAME == "main" ? "mysql-service.tfm-prod-svc-agat-prog.svc.cluster.local" : "mysql-service.tfm-pre-svc-agat-prog.svc.cluster.local"}"
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME == "develop" ? "true" : "false"}"
         BUILD = "${env.BRANCH_NAME == "develop" || env.BRANCH_NAME.startsWith("release") || env.BRANCH_NAME == "main" ? "true" : "false"}"
         REGISTRY = 'agatalba/tfm-mca-filemanagement-oauth2'
@@ -57,7 +58,7 @@ pipeline {
                 }
             }  
             steps {
-                sh "helm upgrade -n ${NAMESPACE} -f helm/values.yaml --set image.tag='${pomVersion}'  oauth2-release helm/"
+                sh "helm upgrade -n ${NAMESPACE} -f helm/values.yaml --set image.tag='${pomVersion}' --set mysql.host=${MYSQL_HOST}  oauth2-release helm/"
             }
         }              
     }
