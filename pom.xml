@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>mca.filesmanagement</groupId>
 	<artifactId>oauth2</artifactId>
-	<version>1.0.8-SNAPSHOT</version>
+	<version>1.0.8</version>
 	<description>Servidor de autenticación</description>
 
 	<parent>
