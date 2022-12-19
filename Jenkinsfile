@@ -58,7 +58,7 @@ pipeline {
                 }
             }  
             steps {
-                sh "helm upgrade -n ${NAMESPACE} -f helm/values.yaml --set image.tag='${pomVersion}' --set mysql.host=${MYSQL_HOST}  oauth2-release helm/"
+                sh "helm upgrade -n ${NAMESPACE} -f helm/values.yaml --set namespace=${NAMESPACE} --set image.tag='${pomVersion}' --set mysql.host=${MYSQL_HOST}  oauth2-release helm/"
             }
         }              
     }
