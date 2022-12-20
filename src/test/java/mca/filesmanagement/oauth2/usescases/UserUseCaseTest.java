@@ -55,8 +55,8 @@ public class UserUseCaseTest {
 		when(this.userRepository.findByUserName(any()))
 				.thenReturn(Optional.ofNullable(UserFactory.createUser(id)));
 
-		Optional<UserDto> userDtoOpt = this.userUseCase
-				.findByUserName(String.format(UserFactory.USER_NAME_FORMAT, id));
+		Optional<UserDto> userDtoOpt = this.userUseCase.findByUserName(
+				String.format(UserFactory.USER_NAME_FORMAT, id));
 
 		verify(this.userRepository, times(1)).findByUserName(any());
 
@@ -65,9 +65,12 @@ public class UserUseCaseTest {
 		UserDto user = userDtoOpt.get();
 		assertNotNull(user);
 		assertNotNull(user.getId());
-		assertEquals(String.format(UserFactory.USER_FIRST_NAME_FORMAT, id), user.getFirstName());
-		assertEquals(String.format(UserFactory.USER_NAME_FORMAT, id), user.getName());
-		assertEquals(String.format(UserFactory.USER_USER_NAME_FORMAT, id), user.getUserName());
+		assertEquals(String.format(UserFactory.USER_FIRST_NAME_FORMAT, id),
+				user.getFirstName());
+		assertEquals(String.format(UserFactory.USER_NAME_FORMAT, id),
+				user.getName());
+		assertEquals(String.format(UserFactory.USER_USER_NAME_FORMAT, id),
+				user.getUserName());
 	}
 
 	@Test
@@ -77,8 +80,8 @@ public class UserUseCaseTest {
 		when(this.userRepository.findByUserName(any()))
 				.thenReturn(Optional.ofNullable(null));
 
-		Optional<UserDto> userDtoOpt = this.userUseCase
-				.findByUserName(String.format(UserFactory.USER_NAME_FORMAT, id));
+		Optional<UserDto> userDtoOpt = this.userUseCase.findByUserName(
+				String.format(UserFactory.USER_NAME_FORMAT, id));
 
 		verify(this.userRepository, times(1)).findByUserName(any());
 
