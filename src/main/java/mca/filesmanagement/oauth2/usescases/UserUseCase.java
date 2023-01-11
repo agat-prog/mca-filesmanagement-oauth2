@@ -19,14 +19,18 @@ public class UserUseCase implements IuserUseCase {
 	@Autowired
 	private IuserRepository userRepository;
 
+	/** Constructor por defecto. */
 	public UserUseCase() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Optional<UserDto> findByUserName(String username) {
 		Assert.notNull(username, "username no puede ser null");
-		
+
 		return this.userRepository.findByUserName(username);
 	}
 }

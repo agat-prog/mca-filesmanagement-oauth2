@@ -12,15 +12,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
-/**
- * Configurador de seguridad del servicio OAuth2 que va a ser levantado.
- * 
- * @author agat
- */
+
 @Configuration
-public class AuthorizacionServerConfiguration
-		extends
-			AuthorizationServerConfigurerAdapter {
+public class AuthorizacionServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -37,10 +31,17 @@ public class AuthorizacionServerConfiguration
 	@Value("${mca.filesmanagement.oauth2.oauthServerPassword:???}")
 	private String oauthServerPassword;
 
+	/**
+	 * Constructor por defecto.
+	 */
 	public AuthorizacionServerConfiguration() {
 		super();
 	}
 
+	/**
+	 * Configurador de seguridad que establece el authenticationManager
+	 * y el servicio que da el detalle de un usuario.
+	 */
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 			throws Exception {
@@ -49,6 +50,9 @@ public class AuthorizacionServerConfiguration
 				.tokenStore(tokenStore);
 	}
 
+	/**
+	 * Configurador de clientes.
+	 */
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients)
 			throws Exception {
@@ -56,9 +60,12 @@ public class AuthorizacionServerConfiguration
 				.authorizedGrantTypes("password", "authorization_code",
 						"refresh_token", "implicit")
 				.scopes("read", "write").autoApprove(true)
-				.secret(passwordEncoder.encode(oauthServerPassword));;
+				.secret(passwordEncoder.encode(oauthServerPassword));
 	}
 
+	/**
+	 * Configurador para establecer los permisos de acceso.
+	 */
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security)
 			throws Exception {
