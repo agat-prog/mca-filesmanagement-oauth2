@@ -54,7 +54,7 @@ public class Oauth2ControllerTest {
 		long id = 1;
 		when(this.userService.findByUserName(any())).thenReturn(Optional.ofNullable(UserFactory.createUser(id)));
 
-		ResponseEntity<UserDto> response = this.oauth2Controller.findByUserName((UserFactory.USER_NAME_FORMAT));
+		ResponseEntity<UserDto> response = this.oauth2Controller.findByUserName(UserFactory.USER_NAME_FORMAT);
 
 		verify(this.userService, times(1)).findByUserName(any());
 
@@ -80,7 +80,7 @@ public class Oauth2ControllerTest {
 	public void givenAnNotExistingUserWhenFindThenReturnOptionalEmpty() {
 		when(this.userService.findByUserName(any())).thenReturn(Optional.ofNullable(null));
 
-		ResponseEntity<UserDto> response = this.oauth2Controller.findByUserName((UserFactory.USER_NAME_FORMAT));
+		ResponseEntity<UserDto> response = this.oauth2Controller.findByUserName(UserFactory.USER_NAME_FORMAT);
 
 		verify(this.userService, times(1)).findByUserName(any());
 
