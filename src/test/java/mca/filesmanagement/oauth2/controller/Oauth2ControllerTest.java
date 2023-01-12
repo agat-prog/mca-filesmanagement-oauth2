@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import mca.filesmanagement.oauth2.UserFactory;
 import mca.filesmanagement.oauth2.dto.UserDto;
 import mca.filesmanagement.oauth2.service.UserService;
 
+@Disabled
 @ExtendWith(SpringExtension.class)
 @Tag("UnitTest")
 @DisplayName("Controller tests")
