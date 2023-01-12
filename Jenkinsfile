@@ -38,11 +38,16 @@ pipeline {
                 sh "mvn clean test"                
             }
         }
-        stage('Check and verify') {
+        stage('Checkstyle') {
+            steps {
+                sh "mvn checkstyle:check"                
+            }
+        }   
+        stage('Coverage check') {
             steps {
                 sh "mvn verify"                
             }
-        }        
+        }              
         stage('Build image') {
             when {
                 environment name: 'BUILD', value: 'true'
