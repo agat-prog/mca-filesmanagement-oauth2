@@ -38,6 +38,11 @@ pipeline {
                 sh "mvn clean test"                
             }
         }
+        stage('Check and verify') {
+            steps {
+                sh "mvn verify"                
+            }
+        }        
         stage('Build image') {
             when {
                 environment name: 'BUILD', value: 'true'

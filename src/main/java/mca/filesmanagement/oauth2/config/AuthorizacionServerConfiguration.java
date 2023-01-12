@@ -1,4 +1,4 @@
-package mca.filesmanagement.oauth2;
+package mca.filesmanagement.oauth2.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

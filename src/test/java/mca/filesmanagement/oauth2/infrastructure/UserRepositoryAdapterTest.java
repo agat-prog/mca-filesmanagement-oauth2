@@ -22,7 +22,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import mca.filesmanagement.oauth2.UserFactory;
 import mca.filesmanagement.oauth2.dto.UserDto;
+import mca.filesmanagement.oauth2.infrastructure.model.UserEntity;
 import mca.filesmanagement.oauth2.repository.UserJpaRepository;
+import net.sf.beanrunner.BeanRunner;
+
 
 @ExtendWith(SpringExtension.class)
 @Tag("UnitTest")
@@ -38,11 +41,13 @@ public class UserRepositoryAdapterTest {
 	@Mock
 	private UserJpaRepository userJpaRepository;
 
+	/** Configuración inicial. */
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
+	/** Test find a existing user. */
 	@Test
 	@DisplayName("Test find a existing user")
 	public void givenAExistingUserWhenFindThenReturnUserDto() {
@@ -55,12 +60,12 @@ public class UserRepositoryAdapterTest {
 
 		Optional<UserDto> userDtoOpt = this.userRepositoryAdapter
 				.findByUserName(String.format(UserFactory.USER_NAME_FORMAT, id));
-		
+
 		verify(this.userJpaRepository, times(1)).findByUserName(any());
-		
 		assertTrue(userDtoOpt.isPresent());
 	}
-	
+
+	/** Test find a not existing user. */
 	@Test
 	@DisplayName("Test find a not existing user")
 	public void givenAnNotExistingUserWhenFindThenReturnOptionalEmpty() {
@@ -72,10 +77,21 @@ public class UserRepositoryAdapterTest {
 				.findByUserName(String.format(UserFactory.USER_NAME_FORMAT, id));
 
 		verify(this.userJpaRepository, times(1)).findByUserName(any());
-		
 		assertTrue(!userDtoOpt.isPresent());
-		
+
 		UserDto user = userDtoOpt.orElse(null);
 		assertNull(user);
+	}
+
+	/** Getters y setters. */
+	@Test
+    public void testGettersAndSetters() throws Exception {
+		BeanRunner beanRunner = new BeanRunner();
+		beanRunner.addTestValue(UserEntity.class, new UserEntity());
+		beanRunner.testBean(new UserEntity());
+
+		beanRunner = new BeanRunner();
+		beanRunner.addTestValue(UserDto.class, new UserDto());
+		beanRunner.testBean(new UserDto());
 	}
 }
