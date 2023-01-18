@@ -17,12 +17,12 @@ import mca.filesmanagement.oauth2.port.in.IuserUseCase;
 
 /**
  * Servicio que carga todos los datos de un determinado usuario.
- * 
+ *
  * @author agat
  */
 @Service
 public class CustomUserDetailService implements UserDetailsService {
-	
+
 	private static Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailService.class);
 
 	@Autowired
@@ -31,16 +31,19 @@ public class CustomUserDetailService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/** Constructor por defecto. */
 	public CustomUserDetailService() {
 		super();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		
 		LOGGER.info(String.format("CustomUserDetailService.loadUserByUsername (%s)", username));
-		
+
 		Optional<UserDto> usuarioOpt = this.userUseCase.findByUserName(username);
 		if (!usuarioOpt.isPresent()) {
 			LOGGER.info(String.format("El usuario [%s] no existe", username));

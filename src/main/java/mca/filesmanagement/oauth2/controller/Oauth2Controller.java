@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controlador REST para el API de usuarios.
- * 
  * @author agat
  */
 @RestController
@@ -27,24 +26,24 @@ public class Oauth2Controller {
 	@Autowired
 	private UserService userService;
 
+	/** Constructor por defecto. */
 	public Oauth2Controller() {
 		super();
 	}
 
 	/**
 	 * Devuelve un usuario a partir de su userName.
-	 * 
+	 *
 	 * @param userName
 	 *            Código identificativo del usuario o nick.
-	 * 
+	 *
 	 * @return Un ResponseEntity que envuelve con el HTTP code los datos del
 	 *         usuario encontrado.
 	 */
 	@GetMapping(path = "/{userName}")
 	public ResponseEntity<UserDto> findByUserName(
 			@PathVariable(name = "userName", required = true) String userName) {
-		LOGGER.info(String.format(
-				"Oauth2Controller.findByUserName: userName -> %s", userName));
+		LOGGER.info(String.format( "Oauth2Controller.findByUserName: userName -> %s", userName));
 
 		Optional<UserDto> opUserDto = this.userService.findByUserName(userName);
 		if (opUserDto.isPresent()) {

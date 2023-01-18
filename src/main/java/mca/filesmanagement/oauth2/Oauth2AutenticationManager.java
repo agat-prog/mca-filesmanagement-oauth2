@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Procesador de la autenticación.
- * 
+ *
  * @author agat
  */
 @Component
@@ -33,10 +33,15 @@ public class Oauth2AutenticationManager implements AuthenticationManager {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/** Constructor por defecto. */
 	public Oauth2AutenticationManager() {
 		super();
 	}
 
+	/**
+	 * Realiza la autenticación a partir de los datos inyectados con el
+	 * username y el password.
+	 */
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
