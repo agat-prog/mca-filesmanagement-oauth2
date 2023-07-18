@@ -11,16 +11,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.testcontainers.junit.jupiter.Testcontainers;
-
-import mca.filesmanagement.oauth2.Oauth2App;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Tag("IntegrationTest")
 @DirtiesContext
-@Testcontainers
+//@Testcontainers
 public abstract class AbstractControllerIT extends TestContainersBase {
 
 	protected WebTestClient webClient;
