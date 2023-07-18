@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Fachada de acceso a la capa de negocio para la información de usuarios.
- * 
+ *
  * @author agat
  */
 @Service
@@ -17,13 +17,14 @@ public class UserService {
 	@Autowired
 	private IuserUseCase userUseCase;
 
+	/** Constructor por defecto. */
 	public UserService() {
 		super();
 	}
 
 	/**
 	 * Busca un usuario a partir de su identificador único.
-	 * 
+	 *
 	 * @param username
 	 *            Identificador de usuario (NOT NULL).
 	 * @return Optional del usuario

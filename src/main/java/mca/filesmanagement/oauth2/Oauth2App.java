@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 /**
  * Iniciador/lanzador principal de la aplicación.
- * 
+ *
  * @author agat
  */
 @SpringBootApplication
@@ -29,16 +29,28 @@ public class Oauth2App {
 		SpringApplication.run(Oauth2App.class, args);
 	}
 
+	/**
+	 * Devuelve el bean que será utilizado para codificar passwords.
+	 * @return Codificador de passwords
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	/**
+	 * Bean que representa un almacén de token.
+	 * @return Tokenstore
+	 */
 	@Bean
 	public TokenStore tokenStore() {
 		return new InMemoryTokenStore();
 	}
 
+	/**
+	 * Devuelve el bean que será utilizado para realizar los mapeos.
+	 * @return Mapper
+	 */
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Adaptador del repositorio JPA de usuarios.
- * 
+ *
  * @author agat
  */
 @Component
@@ -24,10 +24,15 @@ public class UserRepositoryAdapter implements IuserRepository {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	/** Constructor por defecto. */
 	public UserRepositoryAdapter() {
 		super();
 	}
 
+	/**
+	 * Realiza la búsqueda de un usuario a partir de su identificador externo.
+	 * @return Optional con el usuario encontrado.
+	 */
 	@Override
 	@Transactional
 	public Optional<UserDto> findByUserName(String username) {
